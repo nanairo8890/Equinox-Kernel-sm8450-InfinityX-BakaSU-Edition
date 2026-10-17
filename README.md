@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="bakasu-edition-banner.webp" alt="Equinox Kernel - BakaSU and NoMount Edition by Nanairo8890" width="100%">
+<img src="bakasu-edition-banner.webp" alt="Equinox Infinity X BakaSU Edition by Nanairo8890" width="100%">
 
-# Equinox Kernel BakaSU and NoMount Edition by Nanairo8890
+# Equinox Infinity X BakaSU Edition by Nanairo8890
 
-**POCO F5 Pro / Redmi K60** · `mondrian` · Snapdragon 8+ Gen 1
+**POCO F5 Pro / Redmi K60** · `mondrian` · Snapdragon 8+ Gen 1 · **Project Infinity-X 4.1**
 
 **Developer:** [LF52406](https://github.com/LF52406) · **[Download builds](../../releases)**
 
@@ -13,21 +13,22 @@
 ---
 
 > [!NOTE]
-> **This fork is the BakaSU edition of Equinox**, made by **Nanairo** with LF52406's permission.
-> It is Equinox 5.10.269 as released, with four changes:
+> **This fork is the Project Infinity-X build of the BakaSU edition of Equinox**, made by **Nanairo** with
+> LF52406's permission. It is Equinox 5.10.269 as released, with these changes:
 >
-> - **[BakaSU](https://github.com/Baka-SU/BakaSU)** (formerly ReSukiSU) instead of KernelSU-Next, as the `KernelSU/` submodule at `e1682a28`, from BakaSU's [PR #624](https://github.com/Baka-SU/BakaSU/pull/624), which brings SUSFS builds back. Use the BakaSU manager 35217 or newer (35229 recommended): this kernel uses UAPI 5, and older ReSukiSU managers (UAPI 4) ask to be updated before modules and `su` start.
-> - **SUSFS v2.3.0** from [simonpunk's](https://gitlab.com/simonpunk/susfs4ksu) `gki-android12-5.10` branch, through BakaSU's built-in SUSFS support.
+> - **[BakaSU](https://github.com/Baka-SU/BakaSU)** (formerly ReSukiSU) instead of KernelSU-Next, as the `KernelSU/` submodule at `f308ed09` (35233), the latest version of BakaSU's [PR #624](https://github.com/Baka-SU/BakaSU/pull/624), which brings SUSFS builds back. Use the BakaSU manager 35217 or newer (35231 recommended): this kernel uses UAPI 5, and older ReSukiSU managers (UAPI 4) ask to be updated before modules and `su` start.
+> - **SUSFS v2.3.0** from [simonpunk's](https://gitlab.com/simonpunk/susfs4ksu) `gki-android12-5.10` branch at `ca7093a1`, through BakaSU's built-in SUSFS support.
 > - **BBR** as the default TCP congestion control.
 > - **[NoMount](https://github.com/maxsteeel/nomount) v2.1.1** by maxsteeel built in (`fs/nomount`), which
 >   includes deref3046's fix `7e7342c`. Use it with the official NoMount metamodule. Processes that BakaSU/SUSFS
 >   umount modules for see the stock filesystem, and NoMount is hidden from `/sys/module` and `/proc/kallsyms`.
 >
 > Everything else, DroidSpaces included, is LF52406's work, described below. The official Equinox
-> builds are at [LF52406/Equinox-Kernel-sm8450](https://github.com/LF52406/Equinox-Kernel-sm8450).
-> Report problems with the BakaSU edition here, not to LF52406.
+> builds are at [LF52406/Equinox-Kernel-sm8450](https://github.com/LF52406/Equinox-Kernel-sm8450), and the
+> BakaSU edition for MistOS is at [nanairo8890/Equinox-Kernel-sm8450](https://github.com/nanairo8890/Equinox-Kernel-sm8450).
+> Report problems with this edition to Nanairo8890, not to LF52406.
 >
-> Build: `CLANG_DIR=/path/to/clang/bin scripts/equinox/build-bakasu.sh` · Changes: [release notes](scripts/equinox/release-notes/5.10.269-bakasu-r3.md)
+> Build: `CLANG_DIR=/path/to/clang/bin scripts/equinox/build-bakasu.sh` · Changes: [release notes](scripts/equinox/release-notes/5.10.269-bakasu-r4-infinityx.md) · Changelog: [English](CHANGELOG.en.txt) · [Español](CHANGELOG.es.txt) · [Português (Brasil)](CHANGELOG.pt-BR.txt) · [Русский](CHANGELOG.ru.txt)
 
 ---
 
@@ -36,9 +37,9 @@
 | Component | Current |
 |:--|:--|
 | **Linux** | `5.10.269-Equinox` |
-| **Compatibility** | Android 16–17 · AOSP-based ROMs |
-| **BakaSU** | `v4.2.0-rc3-58-ge1682a28` (35229) |
-| **SUSFS** | `2.3.0` |
+| **Compatibility** | Project Infinity-X 4.1 (Android 17, build of 17 October 2026) |
+| **BakaSU** | `v4.2.0-rc3-62-gf308ed09` (35233) |
+| **SUSFS** | `2.3.0` (`ca7093a1`) |
 | **NoMount** | `v2.1.1` built in |
 | **DroidSpaces** | Supported |
 | **TCP** | BBR default · CUBIC available |
@@ -62,14 +63,13 @@
 
 ## Latest Changes
 
-### Linux 5.10.269
+### 5.10.269 r4 for Project Infinity-X 4.1
 
-- Updated BakaSU to `v4.2.0-rc3` (35229)
-- Integrated SUSFS `2.3.0`
-- Added DroidSpaces support
-- Added and verified TCP BBR support
-- Added production KMI validation
-- Added verified AnyKernel3 packaging
+- Separate package for Project Infinity-X 4.1: vendor module CRCs checked against its 337 `vendor_boot` and 390 `vendor_dlkm` modules
+- SUSFS updated to `ca7093a1`, with a fix for a SELinux status leak in `sel_open_handle_status()`
+- BakaSU updated to 35233 (latest PR #624); on this 5.10 kernel its code is the same as in r3
+- BakaSU manager 35231, signed with the same key as 35217 and 35229
+- KMI verified against clean Equinox 5.10.269
 
 [View full release notes](../../releases)
 
@@ -77,12 +77,11 @@
 
 ## Downloads & Flashing
 
-Official Equinox builds are published through **GitHub Releases**.
+Builds are published through **GitHub Releases**, with the SHA256 of each file on the release page.
 
-**Current package:** `Equinox-5.10.269-mondrian.zip`  
-**SHA256:** `f05af44bd3ea19a4bda167efda5b790c2b52d3733a732bafcdccc9a5c76cd60a`
+**Current package:** `Equinox-5.10.269-BakaSU-mondrian-InfinityX-20261017.zip`
 
-Download the release asset and flash the AnyKernel3 ZIP using a compatible recovery or kernel flasher.
+Download the release asset and flash the AnyKernel3 ZIP using a compatible recovery or kernel flasher. The ZIP only replaces the kernel `Image`; if you update Infinity-X, flash it again afterwards.
 
 > GitHub-generated `Source code` archives are not flashable kernel packages.
 
@@ -90,9 +89,7 @@ Download the release asset and flash the AnyKernel3 ZIP using a compatible recov
 
 ## Reporting Issues
 
-When reporting a problem, include the kernel version, a short reproduction description and relevant logs such as `dmesg`, `logcat`, `pstore / ramoops`, or watchdog / panic logs when available.
-
-[Open an issue](../../issues)
+When reporting a problem to Nanairo8890, include the kernel version, a short reproduction description and relevant logs such as `dmesg`, `logcat`, `pstore / ramoops`, or watchdog / panic logs when available.
 
 ---
 
@@ -122,6 +119,6 @@ If you find **Equinox Kernel** useful and would like to support its continued de
 - [**AnyKernel3**](https://github.com/osm0sis/AnyKernel3) by **osm0sis** — flashable kernel packaging
 - [**BakaSU**](https://github.com/Baka-SU/BakaSU) (formerly ReSukiSU) — kernel root implementation of the BakaSU edition
 - [**NoMount**](https://github.com/maxsteeel/nomount) by **maxsteeel**, with a fix by **deref3046** — VFS path redirection for the NoMount metamodule in the BakaSU edition
-- [**Nanairo8890**](https://github.com/nanairo8890) — BakaSU, SUSFS, BBR and NoMount integration of the BakaSU edition
+- [**Nanairo8890**](https://github.com/nanairo8890) — BakaSU, SUSFS, BBR and NoMount integration of the BakaSU edition, and this Project Infinity-X build
 
 Thanks to Qualcomm, LineageOS contributors, Android Common Kernel contributors, and the broader Linux kernel community for the upstream kernel, platform, and driver work that Equinox builds upon.
