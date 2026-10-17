@@ -7,6 +7,26 @@ Problems with this edition: report them to Nanairo8890, not to LF52406.
 
 ---
 
+## 5.10.269 r4 for Project Infinity-X 4.1 (2026-10-17)
+
+**Compatibility**
+- Separate package for Project Infinity-X 4.1 (build of 17 October 2026, Android 17, October 2026 patch). Its stock kernel is `5.10.269-gki-g283772ceb844`, compiled with Clang r596125 and with the same config as MistOS 5.1 Beta's.
+- Vendor module CRCs match the 337 `vendor_boot` and 390 `vendor_dlkm` modules of Infinity-X 4.1, and also those of MistOS 5.1 Beta 20261011.
+- Installation is unchanged: the AnyKernel3 zip only replaces the `Image` and keeps the ROM's ramdisk, header and bootconfig. If you update Infinity-X, flash the zip again, because the ROM ships its own kernel.
+
+**Changes**
+- BakaSU updated to version 35233 (commit `f308ed09`). It is the newest version of PR #624 "kernel: sync for latest susfs", which BakaSU's author updated on 17 October ("sync again" and "fix"), with `selinux_hide.c` changes for the new SUSFS. BakaSU's `main` still blocks SUSFS builds, so this PR is the newest BakaSU that can be used with SUSFS.
+- The only `main` commit not included is `d7260ca1` (context_add_hash), which does not apply to Linux 5.10, plus `ksud` dependency updates that are not part of the kernel.
+- BakaSU manager 35231 (`BakaSU_v4.2.0-rc3_35231-arm64-v8a-release.apk`), from BakaSU's CI (`main` at `2489b385`), signed with the same key as 35217 and 35229. The kernel interface is still version 5: install it over the previous manager, without uninstalling.
+- SUSFS updated to `ca7093a1` (v2.3.0), with the fix "Fix another selinux leak in `sel_open_handle_status()`": the fake SELinux status for apps is now prepared after the real one is opened, so an app can no longer get the real status once the fake one exists.
+- NoMount stays at v2.1.1 by maxsteeel, the latest version.
+
+**Checks**
+- KMI: no exported symbol of clean Equinox changed CRC or disappeared.
+- Not tested on a phone yet.
+
+---
+
 ## 5.10.269 r3 (2026-10-13)
 
 **Compatibility**
